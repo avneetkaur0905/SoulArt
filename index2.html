@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Avneet Kaur — Artist Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --rose:#ff3366;--orange:#ff6b2b;--gold:#ffbe00;
+  --mint:#00e5a0;--sky:#00c3ff;--violet:#8b5cf6;
+  --ink:#0d0d14;--paper:#fffdf7;--cream:#fef9ec;
+  --lavender:#f8f6ff;
+  --t-slow:1.2s cubic-bezier(.4,0,.2,1);
+  --t-med:.5s cubic-bezier(.4,0,.2,1);
+  --t-fast:.22s ease;
+}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");background-size:200px;pointer-events:none;z-index:9990;opacity:.5}
+
+/* CURSOR */
+.cur{width:12px;height:12px;background:var(--rose);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply;transition:width .3s,height .3s,background .3s,border-radius .3s}
+.cur.big{width:56px;height:56px;background:var(--gold);border-radius:4px;opacity:.45}
+
+/* BLOBS */
+.blobs{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:blobFloat 10s ease-in-out infinite alternate}
+.blob1{width:500px;height:500px;background:var(--rose);top:-100px;left:-100px;animation-delay:0s}
+.blob2{width:400px;height:400px;background:var(--gold);top:100px;right:-80px;animation-delay:-3s}
+.blob3{width:350px;height:350px;background:var(--sky);bottom:-60px;left:30%;animation-delay:-6s}
+.blob4{width:300px;height:300px;background:var(--mint);bottom:60px;right:10%;animation-delay:-2s}
+@keyframes blobFloat{from{transform:translateY(0) scale(1) rotate(0deg)}to{transform:translateY(-40px) scale(1.1) rotate(6deg)}}
+
+/* HEADER */
+header{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;transition:background .4s,backdrop-filter .4s}
+header.scrolled{background:rgba(255,253,247,.92);backdrop-filter:blur(18px);border-bottom:1.5px solid rgba(255,51,102,.12)}
+.logo{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;text-decoration:none;color:var(--ink)}
+.logo span{font-style:italic;font-weight:400;background:linear-gradient(90deg,var(--rose),var(--orange),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+nav{display:flex;align-items:center;gap:28px}
+nav a{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:400;color:var(--ink);text-decoration:none;position:relative;padding-bottom:2px;transition:color var(--t-fast)}
+nav a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--rose),var(--orange));transition:width var(--t-med)}
+nav a:hover::after{width:100%}
+.btn-ss{background:linear-gradient(135deg,var(--rose),var(--orange));border:none;cursor:pointer;padding:10px 22px;font-family:'DM Sans',sans-serif;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;font-weight:400;border-radius:100px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(255,51,102,.35);transition:transform var(--t-fast),box-shadow var(--t-fast)}
+.btn-ss:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,51,102,.5)}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:120px 48px 80px;position:relative;overflow:hidden;background:var(--cream)}
+.hero-tag{display:inline-block;font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;border:1.5px solid var(--rose);color:var(--rose);padding:5px 14px;border-radius:100px;margin-bottom:28px;opacity:0;animation:slideIn .8s ease .2s forwards}
+.hero-h1{font-family:'Playfair Display',serif;font-size:clamp(4rem,10vw,9.5rem);font-weight:900;line-height:.9;letter-spacing:-.03em;color:var(--ink);opacity:0;animation:slideIn .9s ease .4s forwards}
+.hero-h1 .grad{font-style:italic;font-weight:400;background:linear-gradient(120deg,var(--rose) 0%,var(--orange) 40%,var(--gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block}
+.hero-sub{font-size:1rem;font-weight:300;color:#555;margin-top:28px;line-height:1.7;max-width:440px;opacity:0;animation:slideIn .8s ease .7s forwards}
+.hero-chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px;opacity:0;animation:slideIn .8s ease .9s forwards}
+.chip{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;padding:6px 16px;border-radius:100px;font-weight:400}
+.chip.a{background:#fff0f4;color:var(--rose);border:1px solid rgba(255,51,102,.2)}
+.chip.b{background:#f8f6ff;color:var(--violet);border:1px solid rgba(139,92,246,.2)}
+.chip.c{background:#fff8e0;color:#c97800;border:1px solid rgba(255,190,0,.3)}
+.chip.d{background:#fff3ed;color:#c04000;border:1px solid rgba(255,107,43,.2)}
+.chip.ph{background:#e8fff8;color:#007a52;border:1px solid rgba(0,229,160,.3)}
+.hero-deco{position:absolute;right:-20px;bottom:-40px;font-family:'Playfair Display',serif;font-size:clamp(14rem,30vw,28rem);font-weight:900;font-style:italic;color:transparent;-webkit-text-stroke:2px rgba(255,51,102,.07);pointer-events:none;user-select:none;line-height:1}
+.scroll-hint{position:absolute;bottom:40px;left:48px;display:flex;align-items:center;gap:12px;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#aaa;opacity:0;animation:slideIn .8s ease 1.2s forwards}
+.scroll-line{width:40px;height:1px;background:linear-gradient(90deg,var(--rose),transparent)}
+
+/* SECTION BASE */
+section{padding:100px 48px}
+.s-label{font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--rose);margin-bottom:12px;display:block}
+.s-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:700;line-height:1.05;color:var(--ink);margin-bottom:8px}
+.s-title em{font-weight:400;font-style:italic;color:var(--orange)}
+.s-desc{font-size:.85rem;color:#888;line-height:1.7;margin-bottom:44px;max-width:520px}
+
+/* ══════════════════════════════
+   SECTION 1 — ARTWORK (TABBED)
+   ══════════════════════════════ */
+#section-artwork{background:var(--cream);position:relative;overflow:hidden}
+#section-artwork::after{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(255,51,102,.07),transparent 70%);bottom:-150px;right:-100px;pointer-events:none}
+
+/* Tab row */
+.tab-row{display:flex;gap:0;margin-bottom:48px;border-bottom:2px solid rgba(0,0,0,.07);flex-wrap:wrap}
+.tab-btn{
+  background:none;border:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;font-weight:400;
+  color:#999;padding:14px 28px;
+  position:relative;transition:color var(--t-fast);
+  white-space:nowrap;
+}
+.tab-btn::after{
+  content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--rose),var(--orange));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform var(--t-med);
+}
+.tab-btn.active{color:var(--ink);font-weight:500}
+.tab-btn.active::after{transform:scaleX(1)}
+.tab-btn:hover{color:var(--ink)}
+
+/* Tab count pill */
+.tab-btn .t-count{
+  display:inline-block;margin-left:7px;
+  font-size:.55rem;padding:2px 7px;border-radius:100px;
+  background:var(--warm-grey,#f0ede6);color:#aaa;
+  vertical-align:middle;transition:background var(--t-fast),color var(--t-fast);
+}
+.tab-btn.active .t-count{background:linear-gradient(135deg,var(--rose),var(--orange));color:#fff}
+
+/* Tab panels */
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:fadeTabIn .4s ease}
+@keyframes fadeTabIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* Tab panel header */
+.tab-panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px}
+.tab-panel-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--ink)}
+.tab-panel-desc{font-size:.78rem;color:#aaa;margin-top:2px;letter-spacing:.02em}
+
+/* Category colour dots */
+.cat-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:8px;vertical-align:middle}
+.dot-mandala{background:linear-gradient(135deg,var(--rose),var(--violet))}
+.dot-drawing{background:linear-gradient(135deg,var(--orange),var(--gold))}
+.dot-little{background:linear-gradient(135deg,var(--mint),var(--sky))}
+.dot-random{background:linear-gradient(135deg,var(--gold),var(--orange))}
+
+/* ══════════════════════════════
+   SECTION 2 — PHOTOGRAPHY
+   ══════════════════════════════ */
+#section-photography{background:var(--ink);position:relative;overflow:hidden}
+#section-photography::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 15% 40%,rgba(0,195,255,.1) 0%,transparent 50%),radial-gradient(circle at 85% 70%,rgba(0,229,160,.07) 0%,transparent 50%);pointer-events:none}
+#section-photography .s-label{color:var(--mint)}
+#section-photography .s-title{color:#fff}
+#section-photography .s-title em{color:var(--sky)}
+#section-photography .s-desc{color:rgba(255,255,255,.4)}
+
+/* Photo grid — masonry columns, natural image sizes, zero gaps */
+.photo-grid{
+  columns:3;
+  column-gap:10px;
+}
+.photo-grid .art-card{
+  break-inside:avoid;
+  margin-bottom:10px;
+  aspect-ratio:unset;
+  height:auto;
+}
+
+/* ══════════════════════════════
+   ART CARDS (shared)
+   ══════════════════════════════ */
+/* Artwork & Photo grids — masonry columns, natural sizes */
+.gallery-grid{
+  columns:3;
+  column-gap:10px;
+}
+.gallery-grid .art-card{
+  break-inside:avoid;
+  margin-bottom:10px;
+  aspect-ratio:unset;
+  height:auto;
+}
+.art-card{position:relative;overflow:hidden;cursor:pointer;border-radius:14px;background:#f0ede6}
+.art-card img{width:100%;height:auto;object-fit:unset;display:block;transition:transform var(--t-slow),filter var(--t-med)}
+.art-card:hover img{transform:scale(1.07);filter:saturate(1.15) brightness(1.02)}
+/* photo masonry cards (identical behaviour) */
+.photo-grid .art-card{height:auto;aspect-ratio:unset}
+.photo-grid .art-card img{height:auto;object-fit:unset}
+
+/* colour stripe by sub-category */
+.art-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;z-index:3;transition:height .3s}
+.art-card[data-sub="Mandalas"]::before{background:linear-gradient(90deg,var(--rose),var(--violet))}
+.art-card[data-sub="Drawing"]::before{background:linear-gradient(90deg,var(--orange),var(--gold))}
+.art-card[data-sub="Little Artworks"]::before{background:linear-gradient(90deg,var(--mint),var(--sky))}
+.art-card[data-sub="Random Art"]::before{background:linear-gradient(90deg,var(--gold),var(--orange))}
+.art-card[data-sub="Photography"]::before{background:linear-gradient(90deg,var(--sky),var(--mint))}
+.art-card:hover::before{height:6px}
+
+.art-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(13,13,20,.88) 0%,rgba(13,13,20,.15) 55%,transparent 100%);opacity:0;transition:opacity var(--t-med);display:flex;flex-direction:column;justify-content:flex-end;padding:20px 18px;border-radius:14px}
+.art-card:hover .art-overlay{opacity:1}
+.art-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#fff;line-height:1.2}
+.art-meta{font-size:.57rem;letter-spacing:.18em;text-transform:uppercase;margin-top:4px;color:rgba(255,255,255,.55)}
+.art-expand{position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.15);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:.7rem;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.7);transition:opacity var(--t-fast),transform var(--t-fast)}
+.art-card:hover .art-expand{opacity:1;transform:scale(1)}
+
+/* empty state */
+.empty-state{grid-column:1/-1;padding:60px 20px;text-align:center;color:#bbb}
+.empty-state p{font-size:.82rem;letter-spacing:.05em}
+.empty-state span{font-size:2.5rem;display:block;margin-bottom:12px;opacity:.3}
+
+/* LIGHTBOX */
+#lightbox{position:fixed;inset:0;z-index:600;background:rgba(10,10,16,.96);opacity:0;pointer-events:none;transition:opacity var(--t-med);display:flex;align-items:center;justify-content:center}
+#lightbox.open{opacity:1;pointer-events:all}
+.lb-wrap{display:flex;width:90vw;max-width:1200px;height:86vh;border-radius:20px;overflow:hidden}
+.lb-img{flex:1;background:#111;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.lb-img img{max-width:100%;max-height:100%;object-fit:contain;opacity:0;transform:scale(.96);transition:opacity .5s,transform .5s}
+.lb-img img.in{opacity:1;transform:scale(1)}
+.lb-side{width:300px;min-width:300px;display:flex;flex-direction:column;justify-content:space-between;padding:48px 36px;background:var(--paper)}
+.lb-badge{display:inline-block;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;padding:4px 12px;border-radius:100px;margin-bottom:20px;font-weight:400}
+.lb-t{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;line-height:1.1;color:var(--ink)}
+.lb-desc{font-size:.82rem;line-height:1.85;color:#666;margin-top:14px}
+.lb-year{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:#bbb;margin-top:auto;padding-top:20px;border-top:1px solid #eee}
+.lb-nav-row{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+.lb-arr{width:40px;height:40px;border-radius:50%;border:1.5px solid #eee;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;color:var(--ink);transition:all var(--t-fast)}
+.lb-arr:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lb-count{font-size:.62rem;color:#aaa;letter-spacing:.1em}
+.lb-x{position:absolute;top:24px;right:24px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background var(--t-fast)}
+.lb-x:hover{background:rgba(255,51,102,.3)}
+
+/* SLIDESHOW */
+#ss{position:fixed;inset:0;z-index:700;background:#060608;display:none}
+#ss.open{display:block}
+.ss-stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.ss-slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 1.4s cubic-bezier(.4,0,.2,1)}
+.ss-slide.on{opacity:1;z-index:1}
+.ss-slide img{max-width:82vw;max-height:82vh;object-fit:contain;border-radius:4px;box-shadow:0 40px 100px rgba(0,0,0,.7)}
+.ss-glow{position:absolute;width:70%;height:60%;border-radius:50%;filter:blur(80px);opacity:.2;pointer-events:none;transition:background 1.4s ease}
+.ss-bar{position:absolute;bottom:0;left:0;right:0;padding:28px 60px 36px;background:linear-gradient(to top,rgba(0,0,0,.7),transparent);display:flex;align-items:flex-end;justify-content:space-between}
+.ss-info-t{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:#fff;line-height:1.1}
+.ss-info-m{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;margin-top:6px}
+.ss-cnt{font-size:.7rem;color:rgba(255,255,255,.35);letter-spacing:.1em}
+.ss-top{position:absolute;top:24px;right:24px;display:flex;gap:10px;z-index:10}
+.ss-icn{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:background var(--t-fast)}
+.ss-icn:hover{background:rgba(255,255,255,.18)}
+.ss-nav{position:absolute;top:50%;transform:translateY(-50%);width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;transition:all var(--t-fast)}
+.ss-nav:hover{background:rgba(255,255,255,.15);color:#fff}
+#ss-prv{left:20px}#ss-nxt{right:20px}
+.ss-prog{position:absolute;bottom:0;left:0;height:3px;z-index:20;background:linear-gradient(90deg,var(--rose),var(--orange),var(--gold))}
+
+/* ABOUT */
+#about{background:var(--cream);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;overflow:hidden}
+#about::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(255,190,0,.1),transparent 70%);top:-100px;right:-100px;pointer-events:none}
+.about-img{position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:16px;background:#f0ede6}
+.about-badge{position:absolute;bottom:20px;left:20px;right:20px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-radius:12px;padding:14px 18px;display:flex;gap:20px;align-items:center}
+.badge-n{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--ink)}
+.badge-s{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:#999;margin-top:2px}
+.accent-bar{height:4px;border-radius:100px;margin-bottom:28px;background:linear-gradient(90deg,var(--rose),var(--orange),var(--gold),var(--mint));width:60px}
+.about-body{font-size:.88rem;line-height:1.9;color:#555;margin-top:16px}
+.skill-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:28px}
+.sk-pill{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;border-radius:100px;font-weight:400}
+.sk-pill.a{background:linear-gradient(135deg,var(--rose),var(--violet));color:#fff}
+.sk-pill.b{background:linear-gradient(135deg,var(--orange),var(--gold));color:#fff}
+.sk-pill.c{background:linear-gradient(135deg,var(--mint),var(--sky));color:#fff}
+.sk-pill.d{background:#f0ede6;color:#888;border:1px solid #ddd}
+
+/* CONTACT */
+#contact{background:var(--ink);color:#fff;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;position:relative;overflow:hidden}
+#contact::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 50%,rgba(255,51,102,.15) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(0,195,255,.1) 0%,transparent 50%);pointer-events:none}
+#contact .s-label{color:var(--orange)}
+#contact .s-title{color:#fff}
+#contact .s-title em{color:var(--gold)}
+#contact .s-desc{color:rgba(255,255,255,.4)}
+.c-cards{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.c-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px 22px;transition:background var(--t-fast),border-color var(--t-fast)}
+.c-card:hover{background:rgba(255,255,255,.09);border-color:rgba(255,51,102,.3)}
+.c-l{font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;color:var(--orange);margin-bottom:4px}
+.c-v{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:400;color:rgba(255,255,255,.85)}
+
+/* FOOTER */
+footer{background:var(--ink);padding:20px 48px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,.05);font-size:.6rem;letter-spacing:.12em;color:rgba(255,255,255,.2)}
+.logo-f{background:linear-gradient(90deg,var(--rose),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ANIMATIONS */
+@keyframes slideIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.rev{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+.rev.go{opacity:1;transform:translateY(0)}
+.rev.d1{transition-delay:.1s}.rev.d2{transition-delay:.2s}.rev.d3{transition-delay:.3s}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  header{padding:18px 24px}
+  nav a{font-size:.6rem;letter-spacing:.14em}
+  section{padding:72px 24px}
+  #hero{padding:100px 24px 72px}
+  .gallery-grid{columns:2}
+  .photo-grid{columns:2}
+  #about,#contact{grid-template-columns:1fr;gap:40px}
+  .lb-side{display:none}
+}
+@media(max-width:560px){
+  .gallery-grid{columns:1}
+  .photo-grid{columns:1}
+  .tab-btn{padding:10px 16px;font-size:.62rem}
+  nav{gap:14px}
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+
+<!-- ── HEADER ── -->
+<header id="hdr">
+  <a href="#" class="logo">Avneet <span>Kaur</span></a>
+  <nav>
+    <a href="#section-artwork">Artwork</a>
+    <a href="#section-photography">Photography</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <button class="btn-ss" onclick="openSS()">
+      <svg width="11" height="11" viewBox="0 0 11 11"><polygon points="1,0.5 10.5,5.5 1,10.5" fill="currentColor"/></svg>
+      Slideshow
+    </button>
+  </nav>
+</header>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="blobs">
+    <div class="blob blob1"></div><div class="blob blob2"></div>
+    <div class="blob blob3"></div><div class="blob blob4"></div>
+  </div>
+  <div class="hero-tag">Visual Artist · Delhi, India</div>
+  <h1 class="hero-h1">Avneet<span class="grad">Kaur</span></h1>
+  <p class="hero-sub">Mandalas · Drawing · Photography & more<br>Colour as emotion. Light as language.</p>
+  <div class="hero-chips">
+    <span class="chip a">Mandalas</span>
+    <span class="chip b">Drawing</span>
+    <span class="chip c">Little Artworks</span>
+    <span class="chip d">Random Art</span>
+    <span class="chip ph">Photography</span>
+  </div>
+  <div class="hero-deco">A</div>
+  <div class="scroll-hint"><div class="scroll-line"></div><span>Scroll to explore</span></div>
+</section>
+
+<!-- ══════════════════════════════
+     SECTION 1 — ARTWORK
+     ══════════════════════════════ -->
+<section id="section-artwork">
+  <span class="s-label rev">Section 01</span>
+  <h2 class="s-title rev d1">My <em>Artwork</em></h2>
+  <p class="s-desc rev d2">A collection of mandalas, drawings, small pieces and everything in between.</p>
+
+  <!-- Tab buttons -->
+  <div class="tab-row rev d2" id="artTabRow">
+    <button class="tab-btn active" data-tab="Mandalas" onclick="switchTab('Mandalas')">
+      <span class="cat-dot dot-mandala"></span>Mandalas
+      <span class="t-count" id="cnt-Mandalas">0</span>
+    </button>
+    <button class="tab-btn" data-tab="Drawing" onclick="switchTab('Drawing')">
+      <span class="cat-dot dot-drawing"></span>Drawing
+      <span class="t-count" id="cnt-Drawing">0</span>
+    </button>
+    <button class="tab-btn" data-tab="Little Artworks" onclick="switchTab('Little Artworks')">
+      <span class="cat-dot dot-little"></span>Little Artworks
+      <span class="t-count" id="cnt-Little Artworks">0</span>
+    </button>
+    <button class="tab-btn" data-tab="Random Art" onclick="switchTab('Random Art')">
+      <span class="cat-dot dot-random"></span>Random Art
+      <span class="t-count" id="cnt-Random Art">0</span>
+    </button>
+  </div>
+
+  <!-- Tab panels -->
+  <div class="tab-panel active" id="panel-Mandalas">
+    <div class="tab-panel-header">
+      <div>
+        <div class="tab-panel-title">🌸 Mandalas</div>
+        <div class="tab-panel-desc">Sacred geometry, intricate patterns, meditative circles.</div>
+      </div>
+    </div>
+    <div class="gallery-grid" id="grid-Mandalas"></div>
+  </div>
+
+  <div class="tab-panel" id="panel-Drawing">
+    <div class="tab-panel-header">
+      <div>
+        <div class="tab-panel-title">✏️ Drawing</div>
+        <div class="tab-panel-desc">Pencil, ink, charcoal — lines that tell stories.</div>
+      </div>
+    </div>
+    <div class="gallery-grid" id="grid-Drawing"></div>
+  </div>
+
+  <div class="tab-panel" id="panel-Little Artworks">
+    <div class="tab-panel-header">
+      <div>
+        <div class="tab-panel-title">🎨 Little Artworks</div>
+        <div class="tab-panel-desc">Small canvases, big feelings — miniature masterpieces.</div>
+      </div>
+    </div>
+    <div class="gallery-grid" id="grid-Little Artworks"></div>
+  </div>
+
+  <div class="tab-panel" id="panel-Random Art">
+    <div class="tab-panel-header">
+      <div>
+        <div class="tab-panel-title">🌀 Random Art</div>
+        <div class="tab-panel-desc">Experiments, doodles, and happy accidents.</div>
+      </div>
+    </div>
+    <div class="gallery-grid" id="grid-Random Art"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     SECTION 2 — PHOTOGRAPHY
+     ══════════════════════════════ -->
+<section id="section-photography">
+  <span class="s-label rev">Section 02</span>
+  <h2 class="s-title rev d1">My <em style="color:var(--sky)">Photography</em></h2>
+  <p class="s-desc rev d2">Moments frozen in light — capturing the world one frame at a time.</p>
+  <div class="photo-grid rev d2" id="grid-photography"></div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="about-img rev">
+    <div style="width:100%;height:100%;background:linear-gradient(135deg,#ffe4ec,#fff0d4,#e4f8f0);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px">
+      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <span style="font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:#ccc">Your photo here</span>
+    </div>
+    <div class="about-badge">
+      <div><div class="badge-n">Avneet Kaur</div><div class="badge-s">Visual Artist</div></div>
+      <div style="margin-left:auto;display:flex;align-items:center">
+        <div style="width:9px;height:9px;border-radius:50%;background:var(--mint);margin-right:6px"></div>
+        <span style="font-size:.58rem;color:#999;letter-spacing:.1em">Available for commissions</span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="accent-bar rev"></div>
+    <span class="s-label rev d1">About Me</span>
+    <h2 class="s-title rev d1">The <em>Artist</em></h2>
+    <p class="about-body rev d2">Avneet Kaur is a multidisciplinary visual artist based in Delhi, India. Her practice spans mandalas, drawing, digital pieces, and photography — each medium a different language for the same curiosity about light, pattern, and emotion.</p>
+    <p class="about-body rev d2" style="margin-top:12px">She works intuitively, letting the art arrive before the idea.</p>
+    <div class="skill-pills rev d3">
+      <span class="sk-pill a">Mandalas</span>
+      <span class="sk-pill b">Drawing</span>
+      <span class="sk-pill c">Photography</span>
+      <span class="sk-pill d">Commissions open</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="rev" style="position:relative;z-index:1">
+    <span class="s-label">Get in Touch</span>
+    <h2 class="s-title">Let's <em>Create</em><br>Together</h2>
+    <p class="s-desc">Commissions, collabs, exhibitions, or just to say hello.</p>
+  </div>
+  <div class="c-cards rev d1" style="position:relative;z-index:1">
+    <div class="c-card"><div class="c-l">Email</div><div class="c-v">avneet@example.com</div></div>
+    <div class="c-card"><div class="c-l">Instagram</div><div class="c-v">@avneetkaur.art</div></div>
+    <div class="c-card"><div class="c-l">Based in</div><div class="c-v">Delhi, India</div></div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <span class="logo-f">Avneet Kaur</span>
+  <span>© 2025 All rights reserved.</span>
+</footer>
+
+<!-- ── LIGHTBOX ── -->
+<div id="lightbox">
+  <button class="lb-x" onclick="closeLB()">✕</button>
+  <div class="lb-wrap">
+    <div class="lb-img"><img id="lbImg" src="" alt=""/></div>
+    <div class="lb-side">
+      <div>
+        <span class="lb-badge" id="lbBadge"></span>
+        <h3 class="lb-t" id="lbT"></h3>
+        <p class="lb-desc" id="lbD"></p>
+      </div>
+      <div>
+        <p class="lb-year" id="lbY"></p>
+        <div class="lb-nav-row">
+          <button class="lb-arr" onclick="lbNav(-1)">&#8592;</button>
+          <span class="lb-count" id="lbC"></span>
+          <button class="lb-arr" onclick="lbNav(1)">&#8594;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SLIDESHOW ── -->
+<div id="ss">
+  <div class="ss-stage">
+    <div class="ss-glow" id="ssGlow"></div>
+    <div id="ssSlides"></div>
+  </div>
+  <div class="ss-prog" id="ssProg"></div>
+  <div class="ss-top">
+    <button class="ss-icn" id="ssPauseBtn" onclick="togglePause()">⏸</button>
+    <button class="ss-icn" onclick="closeSS()">✕</button>
+  </div>
+  <button class="ss-nav" id="ss-prv" onclick="ssNav(-1)">&#8592;</button>
+  <button class="ss-nav" id="ss-nxt" onclick="ssNav(1)">&#8594;</button>
+  <div class="ss-bar">
+    <div><div class="ss-info-t" id="ssT"></div><div class="ss-info-m" id="ssM"></div></div>
+    <div class="ss-cnt" id="ssC"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     YOUR ARTWORK DATA
+     ══════════════════════════════════════════════
+     HOW TO ADD YOUR OWN IMAGES:
+     1. Put your image files in an "images/" folder
+     2. Change the img: value to "images/yourfile.jpg"
+     3. Set subcategory to one of:
+        Artwork:     "Mandalas" | "Drawing" | "Little Artworks" | "Random Art"
+        Photography: "Photography"
+     ══════════════════════════════════════════════ -->
+<script>
+const AW = [
+  /* ── MANDALAS ── */
+  {id:1,  title:"Midnight Geometry",    subcategory:"Mandalas", year:"2024", desc:"White gel pen on black — every dot placed in silence. A labour of patience and inner calm.", img:"images/mandala_01.jpg"},
+  {id:2,  title:"Rainbow Arc",          subcategory:"Mandalas", year:"2024", desc:"Vibrant bands of colour beneath intricate black ink — radiating outward like a sunrise painted in rings.", img:"images/mandala_02.jpg"},
+  {id:3,  title:"Lotus in Bloom",       subcategory:"Mandalas", year:"2024", desc:"Green and red at the centre, blue petals spreading outward — life growing from a quiet, rooted core.", img:"images/mandala_03.jpg"},
+  {id:4,  title:"Happiness",            subcategory:"Mandalas", year:"2024", desc:"Neon pink and violet on black — the word happiness hidden at the very centre, where it belongs.", img:"images/mandala_04.jpg"},
+  {id:5,  title:"Pastel Trio",          subcategory:"Mandalas", year:"2024", desc:"Three mandalas connected by a thread of blue fading into purple — like a calm evening stretched across paper.", img:"images/mandala_05.jpg"},
+  {id:6,  title:"Still With You",       subcategory:"Mandalas", year:"2024", desc:"Half a mandala, deep blue, carrying a quiet message. Art and words sharing the same breath.", img:"images/mandala_06.jpg"},
+  {id:7,  title:"Order & Flow",         subcategory:"Mandalas", year:"2024", desc:"Bold blue stripes meeting a black-ink mandala — structure and symmetry in quiet conversation.", img:"images/mandala_07.jpg"},
+  {id:8,  title:"Quarter Moon",         subcategory:"Mandalas", year:"2024", desc:"A quarter mandala in pink and blue — never quite finished, never needing to be.", img:"images/mandala_08.jpg"},
+  {id:9,  title:"Golden Leaves",        subcategory:"Mandalas", year:"2024", desc:"Black ink on a golden sunburst — white leaves scattered inside a dark circle, signed with care.", img:"images/mandala_09.jpg"},
+  {id:10, title:"Mandala Moon",         subcategory:"Mandalas", year:"2024", desc:"A mandala sun rising over a quiet building — ink and watercolour in unexpected, tender company.", img:"images/mandala_10.jpg"},
+  {id:11, title:"Sunburst",             subcategory:"Mandalas", year:"2024", desc:"Bold petals radiating from a black centre — pure meditative geometry, nothing more, nothing less.", img:"images/mandala_11.jpg"},
+  {id:12, title:"Green Half",           subcategory:"Mandalas", year:"2024", desc:"A half-circle mandala on lime green — like catching a glimpse of something vast through a keyhole.", img:"images/mandala_12.jpg"},
+
+  /* ── DRAWING ── */
+  {id:13, title:"Starry Night",          subcategory:"Drawing", year:"2024", desc:"A little inspiration from Van Gogh — swirling, restless lines that make the night feel alive, like the sky itself is breathing.", img:"images/drawing_01.jpg"},
+  {id:14, title:"Ink Portrait",         subcategory:"Drawing", year:"2024", desc:"Ink on paper — each stroke a commitment. You cannot take it back, and you wouldn't want to.", img:"images/drawing_02.jpg"},
+  {id:15, title:"Light & Shadow",       subcategory:"Drawing", year:"2024", desc:"Charcoal shadows and bright highlights held in careful balance — the drama is all in the contrast.", img:"images/drawing_03.jpg"},
+  {id:16, title:"Muscle Memory",        subcategory:"Drawing", year:"2024", desc:"The hand remembers what the mind has long forgotten. Drawing from somewhere deeper than thought.", img:"images/drawing_04.jpg"},
+  {id:17, title:"Sketch Dialogue",      subcategory:"Drawing", year:"2024", desc:"Every line a small decision. Every sketch a conversation between the hand and the page.", img:"images/drawing_05.jpg"},
+  {id:18, title:"Form & Feeling",       subcategory:"Drawing", year:"2024", desc:"Form and feeling — two things that refuse to be separated, no matter how hard you try.", img:"images/drawing_06.jpg"},
+  {id:19, title:"In Between",           subcategory:"Drawing", year:"2024", desc:"A study in light and the spaces between — what is left undrawn says as much as what is filled in.", img:"images/drawing_07.jpg"},
+  {id:30, title:"Pressed Down",         subcategory:"Drawing", year:"2024", desc:"Heavy pencil, heavy emotion — the pressure in the line tells you everything about the moment it was made.", img:"images/drawing_08.jpg"},
+  {id:31, title:"The Final Stroke",     subcategory:"Drawing", year:"2024", desc:"The last mark placed on a drawing always feels the most certain — and the most terrifying.", img:"images/drawing_09.jpg"},
+
+  /* ── LITTLE ARTWORKS ── */
+  {id:40, title:"Pocket Canvas",        subcategory:"Little Artworks", year:"2024", desc:"Small canvas, enormous feeling — proof that size has nothing to do with impact.", img:"images/little_artwork_01.jpg"},
+  {id:41, title:"Colour Note",          subcategory:"Little Artworks", year:"2024", desc:"Tiny strokes carrying boundless imagination — a whole mood compressed into a few square centimetres.", img:"images/little_artwork_02.jpg"},
+  {id:42, title:"Small Wonder",         subcategory:"Little Artworks", year:"2024", desc:"Good things really do come in small packages. This one took longer than it looks.", img:"images/little_artwork_03.jpg"},
+  {id:43, title:"Miniature World",      subcategory:"Little Artworks", year:"2024", desc:"An entire world compressed into a few square inches — look closer and it opens up.", img:"images/little_artwork_04.jpg"},
+  {id:44, title:"Colour Pocket",        subcategory:"Little Artworks", year:"2024", desc:"Small but perfectly formed — a compact burst of colour that asks to be carried around.", img:"images/little_artwork_05.jpg"},
+  {id:45, title:"Fine Detail",          subcategory:"Little Artworks", year:"2024", desc:"Delicate details that only reveal themselves the longer you look — patience rewarded.", img:"images/little_artwork_06.jpg"},
+  {id:46, title:"Still Moment",         subcategory:"Little Artworks", year:"2024", desc:"A quiet piece made for a quiet moment. Sometimes art does not need to shout.", img:"images/little_artwork_07.jpg"},
+  {id:47, title:"Calm & Colour",        subcategory:"Little Artworks", year:"2024", desc:"Colour and calm sharing a compact frame — a small meditation you can hold in your hand.", img:"images/little_artwork_08.jpg"},
+  {id:48, title:"Big Heart",            subcategory:"Little Artworks", year:"2024", desc:"The smallest works often contain the largest hearts. This one is no exception.", img:"images/little_artwork_09.jpg"},
+  {id:49, title:"Last of Ten",          subcategory:"Little Artworks", year:"2024", desc:"The tenth in the series — and somehow the one that feels the most complete.", img:"images/little_artwork_10.jpg"},
+
+  /* ── RANDOM ART ── */
+  {id:50, title:"Pure Instinct",        subcategory:"Random Art", year:"2024", desc:"No plan, no rules, no second-guessing — just colour following instinct wherever it wants to go.", img:"images/random_art_01.jpg"},
+  {id:51, title:"Happy Accident",       subcategory:"Random Art", year:"2024", desc:"The best art is often unplanned. This one happened while trying to do something else entirely.", img:"images/random_art_02.jpg"},
+  {id:52, title:"Letting Go",           subcategory:"Random Art", year:"2024", desc:"An experiment in texture and colour — and in learning to stop before it is overdone.", img:"images/random_art_03.jpg"},
+
+  /* ── PHOTOGRAPHY ── */
+  {id:60, title:"My Art Wall",             subcategory:"Photography", year:"2024", desc:"Every piece pinned up — a living map of months spent creating.", img:"images/photography1.jpg"},
+  {id:61, title:"Golden Afternoon",        subcategory:"Photography", year:"2024", desc:"Late sun washing everything amber — the kind of light that makes ordinary things look sacred.", img:"images/photography2.jpg"},
+  {id:62, title:"Quiet Corner",            subcategory:"Photography", year:"2024", desc:"A still moment between the noise — the world pausing just long enough to be noticed.", img:"images/photography3.jpg"},
+  {id:63, title:"City in Layers",          subcategory:"Photography", year:"2024", desc:"Delhi never stops moving. This frame caught it mid-breath.", img:"images/photography4.jpg"},
+  {id:64, title:"Soft Focus",              subcategory:"Photography", year:"2024", desc:"When the edges blur, only the feeling remains.", img:"images/photography5.jpg"},
+  {id:65, title:"Texture & Light",         subcategory:"Photography", year:"2024", desc:"Rough surface, gentle light — contrast is where the story hides.", img:"images/photography7.jpg"},
+  {id:66, title:"Between Shadows",         subcategory:"Photography", year:"2024", desc:"Shadow is not the absence of light — it is light with somewhere else to be.", img:"images/photography8.jpg"},
+  {id:67, title:"Candid Pulse",            subcategory:"Photography", year:"2024", desc:"No pose, no plan. Just a moment the camera happened to catch.", img:"images/photography9.jpg"},
+  {id:68, title:"Window Light",            subcategory:"Photography", year:"2024", desc:"Open window, honest light, no filter needed.", img:"images/photography10.jpg"},
+  {id:69, title:"Everyday Wonder",         subcategory:"Photography", year:"2024", desc:"Beauty is hiding in the ordinary — you just have to slow down long enough to see it.", img:"images/photography11.jpg"},
+  {id:70, title:"Still Life",              subcategory:"Photography", year:"2024", desc:"Objects at rest tell the loudest stories.", img:"images/photography12.jpg"},
+  {id:71, title:"Perfect Angle",           subcategory:"Photography", year:"2024", desc:"One step left, one breath held — and suddenly the frame was right.", img:"images/photography14.jpg"},
+  {id:72, title:"Held Breath",             subcategory:"Photography", year:"2024", desc:"The world looked like this for exactly one second. I was there.", img:"images/photography15.jpg"},
+  {id:73, title:"Almost Missed",           subcategory:"Photography", year:"2024", desc:"A moment that nearly slipped by unrecorded.", img:"images/photography16.jpg"},
+  {id:74, title:"Colour & Calm",           subcategory:"Photography", year:"2024", desc:"Colour as mood, composition as intention.", img:"images/photography17.jpg"},
+  {id:75, title:"Evening Settles",         subcategory:"Photography", year:"2024", desc:"Dusk arriving slowly, turning familiar streets into something else entirely.", img:"images/photography18.jpg"},
+  {id:76, title:"Curious Eyes",            subcategory:"Photography", year:"2024", desc:"The world changes shape depending on how you decide to look at it.", img:"images/photography19.jpg"},
+  {id:77, title:"Wide Open",               subcategory:"Photography", year:"2024", desc:"Sky, land, and the quiet sense that anything is possible.", img:"images/photography20.jpg"},
+  {id:78, title:"Last Light",              subcategory:"Photography", year:"2024", desc:"The final frame — and somehow the most honest one of all.", img:"images/photography21.jpg"},
+  {id:79, title:"Rain Lily",               subcategory:"Photography", year:"2024", desc:"A pink lily pushing up through the earth after the rain — delicate, defiant, and quietly beautiful.", img:"images/photography22.jpg"},
+];
+
+/* Colour map for slideshow glow & lightbox badges */
+const SUB_GLOW = {
+  "Mandalas":      "linear-gradient(135deg,#ff3366,#8b5cf6)",
+  "Drawing":       "linear-gradient(135deg,#ff6b2b,#ffbe00)",
+  "Little Artworks":"linear-gradient(135deg,#00e5a0,#00c3ff)",
+  "Random Art":    "linear-gradient(135deg,#ffbe00,#ff6b2b)",
+  "Photography":   "linear-gradient(135deg,#00c3ff,#00e5a0)",
+};
+const SUB_BADGE = {
+  "Mandalas":       "background:#fff0f4;color:#ff3366",
+  "Drawing":        "background:#fff8e0;color:#c97800",
+  "Little Artworks":"background:#e8fff8;color:#007a52",
+  "Random Art":     "background:#fff3ed;color:#c04000",
+  "Photography":    "background:#e8f8ff;color:#006d99",
+};
+</script>
+
+<script>
+/* ── CURSOR ── */
+const cur = document.getElementById('cur');
+document.addEventListener('mousemove', e => { cur.style.left=e.clientX+'px'; cur.style.top=e.clientY+'px'; });
+document.querySelectorAll('a,button,.art-card').forEach(el => {
+  el.addEventListener('mouseenter', () => cur.classList.add('big'));
+  el.addEventListener('mouseleave', () => cur.classList.remove('big'));
+});
+
+/* ── HEADER ── */
+window.addEventListener('scroll', () => document.getElementById('hdr').classList.toggle('scrolled', scrollY > 20));
+
+/* ── REVEAL ── */
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('go'), i * 60); });
+}, { threshold: .1 });
+document.querySelectorAll('.rev').forEach(r => revObs.observe(r));
+
+/* ── BUILD CARDS ── */
+let lbPool = [], lbI = 0;
+
+function makeCard(art, index, pool) {
+  const c = document.createElement('div');
+  c.className = 'art-card';
+  c.dataset.sub = art.subcategory;
+  c.innerHTML = `
+    <img src="${art.img}" alt="${art.title}" loading="lazy"/>
+    <div class="art-overlay">
+      <div class="art-expand">↗</div>
+      <div class="art-title">${art.title}</div>
+      <div class="art-meta">${art.subcategory} · ${art.year}</div>
+    </div>`;
+  c.addEventListener('click', () => { lbPool = pool; lbI = index; showLB(); document.getElementById('lightbox').classList.add('open'); document.body.style.overflow = 'hidden'; });
+  return c;
+}
+
+/* ── RENDER ARTWORK TABS ── */
+const ART_CATS = ['Mandalas', 'Drawing', 'Little Artworks', 'Random Art'];
+
+function renderArtworkTabs() {
+  ART_CATS.forEach(cat => {
+    const list = AW.filter(a => a.subcategory === cat);
+    const grid = document.getElementById('grid-' + cat);
+    if (!grid) return;
+    grid.innerHTML = '';
+    if (list.length === 0) {
+      grid.innerHTML = `<div class="empty-state"><span>🎨</span><p>Coming soon — more ${cat} on the way!</p></div>`;
+    } else {
+      list.forEach((art, i) => grid.appendChild(makeCard(art, i, list)));
+    }
+    const countEl = document.getElementById('cnt-' + cat);
+    if (countEl) countEl.textContent = list.length || '';
+  });
+}
+
+/* ── RENDER PHOTOGRAPHY GRID ── */
+function renderPhotography() {
+  const list = AW.filter(a => a.subcategory === 'Photography');
+  const grid = document.getElementById('grid-photography');
+  grid.innerHTML = '';
+  if (list.length === 0) {
+    grid.innerHTML = `<div class="empty-state" style="color:rgba(255,255,255,.3)"><span>📷</span><p>Coming soon!</p></div>`;
+  } else {
+    list.forEach((art, i) => grid.appendChild(makeCard(art, i, list)));
+  }
+}
+
+/* ── TABS ── */
+function switchTab(cat) {
+  // Hide all panels
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  // Show selected
+  const panel = document.getElementById('panel-' + cat);
+  if (panel) panel.classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b => { if (b.dataset.tab === cat) b.classList.add('active'); });
+}
+
+/* ── LIGHTBOX ── */
+function closeLB() { document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow = ''; }
+function showLB() {
+  const a = lbPool[lbI];
+  const img = document.getElementById('lbImg');
+  img.classList.remove('in'); img.onload = () => img.classList.add('in');
+  img.src = a.img; img.alt = a.title;
+  document.getElementById('lbT').textContent = a.title;
+  document.getElementById('lbD').textContent = a.desc;
+  document.getElementById('lbY').textContent = a.year;
+  document.getElementById('lbC').textContent = `${lbI + 1} / ${lbPool.length}`;
+  const b = document.getElementById('lbBadge');
+  b.textContent = a.subcategory; b.style.cssText = SUB_BADGE[a.subcategory] || '';
+}
+function lbNav(d) { lbI = (lbI + d + lbPool.length) % lbPool.length; showLB(); }
+document.getElementById('lightbox').addEventListener('click', function(e) { if (e.target === this) closeLB(); });
+
+/* ── SLIDESHOW ── */
+let ssI = 0, ssTimer = null, ssPaused = false;
+const SS_DUR = 5000;
+const SS_ALL = AW; // slideshow plays ALL artwork
+
+function buildSS() {
+  const c = document.getElementById('ssSlides'); c.innerHTML = '';
+  SS_ALL.forEach((a, i) => {
+    const s = document.createElement('div');
+    s.className = 'ss-slide' + (i === 0 ? ' on' : '');
+    s.id = 'sss' + i;
+    s.innerHTML = `<img src="${a.img}" alt="${a.title}" loading="lazy"/>`;
+    c.appendChild(s);
+  });
+}
+function ssCaption() {
+  const a = SS_ALL[ssI];
+  document.getElementById('ssT').textContent = a.title;
+  document.getElementById('ssM').textContent = `${a.subcategory} · ${a.year}`;
+  document.getElementById('ssM').style.color = a.subcategory === 'Photography' ? 'var(--mint)' : 'var(--orange)';
+  document.getElementById('ssC').textContent = `${ssI + 1} / ${SS_ALL.length}`;
+  document.getElementById('ssGlow').style.background = SUB_GLOW[a.subcategory] || SUB_GLOW['Mandalas'];
+}
+function ssGoTo(i) {
+  document.querySelectorAll('.ss-slide').forEach(s => s.classList.remove('on'));
+  ssI = (i + SS_ALL.length) % SS_ALL.length;
+  document.getElementById('sss' + ssI).classList.add('on');
+  ssCaption(); startProg();
+}
+function ssNav(d) { clearTimeout(ssTimer); ssGoTo(ssI + d); if (!ssPaused) scheduleSS(); }
+function scheduleSS() { clearTimeout(ssTimer); ssTimer = setTimeout(() => { ssGoTo(ssI + 1); scheduleSS(); }, SS_DUR); }
+function startProg() {
+  const b = document.getElementById('ssProg');
+  b.style.transition = 'none'; b.style.width = '0%';
+  requestAnimationFrame(() => { b.style.transition = `width ${SS_DUR}ms linear`; b.style.width = '100%'; });
+}
+function openSS() {
+  buildSS(); ssI = 0;
+  document.querySelectorAll('.ss-slide').forEach((s, i) => s.classList.toggle('on', i === 0));
+  ssCaption();
+  document.getElementById('ss').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  ssPaused = false; document.getElementById('ssPauseBtn').textContent = '⏸';
+  scheduleSS(); startProg();
+}
+function closeSS() { document.getElementById('ss').classList.remove('open'); document.body.style.overflow = ''; clearTimeout(ssTimer); }
+function togglePause() {
+  ssPaused = !ssPaused;
+  document.getElementById('ssPauseBtn').textContent = ssPaused ? '▶' : '⏸';
+  if (ssPaused) { clearTimeout(ssTimer); document.getElementById('ssProg').style.transition = 'none'; }
+  else { scheduleSS(); startProg(); }
+}
+
+/* ── KEYBOARD ── */
+document.addEventListener('keydown', e => {
+  if (document.getElementById('lightbox').classList.contains('open')) {
+    if (e.key === 'Escape') closeLB();
+    if (e.key === 'ArrowLeft') lbNav(-1);
+    if (e.key === 'ArrowRight') lbNav(1);
+  }
+  if (document.getElementById('ss').classList.contains('open')) {
+    if (e.key === 'Escape') closeSS();
+    if (e.key === 'ArrowLeft') ssNav(-1);
+    if (e.key === 'ArrowRight') ssNav(1);
+    if (e.key === ' ') { e.preventDefault(); togglePause(); }
+  }
+});
+
+/* ── INIT ── */
+renderArtworkTabs();
+renderPhotography();
+</script>
+</body>
+</html>
