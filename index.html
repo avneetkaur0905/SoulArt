@@ -17,7 +17,7 @@
   --t-fast:.22s ease;
 }
 html{scroll-behavior:auto}
-body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden}
+body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;overflow-anchor:none}
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");background-size:200px;pointer-events:none;z-index:9990;opacity:.5}
 
 /* CURSOR */
@@ -641,31 +641,38 @@ function stopNavScroll() {
   }
 }
 
-function animateNavScroll(targetY, duration = 650) {
+function scrollNavToSection(target) {
   stopNavScroll();
-  const startY = window.scrollY;
-  const distance = targetY - startY;
-  const startTime = performance.now();
+  const endTime = performance.now() + 1800;
+  let settledFrames = 0;
 
-  function step(now) {
-    const elapsed = now - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    const eased = progress < 0.5
-      ? 4 * progress * progress * progress
-      : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-    window.scrollTo(0, Math.round(startY + distance * eased));
-    if (progress < 1) navScrollFrame = requestAnimationFrame(step);
-    else navScrollFrame = null;
+  function lockToTarget() {
+    const top = getNavTargetTop(target);
+    const delta = top - window.scrollY;
+
+    if (Math.abs(delta) <= 2) {
+      settledFrames += 1;
+      if (settledFrames >= 8 || performance.now() >= endTime) {
+        window.scrollTo(0, top);
+        navScrollFrame = null;
+        return;
+      }
+    } else {
+      settledFrames = 0;
+      const step = Math.abs(delta) > 140 ? delta * 0.22 : delta;
+      window.scrollTo(0, Math.round(window.scrollY + step));
+    }
+
+    if (performance.now() >= endTime) {
+      window.scrollTo(0, getNavTargetTop(target));
+      navScrollFrame = null;
+      return;
+    }
+
+    navScrollFrame = requestAnimationFrame(lockToTarget);
   }
 
-  navScrollFrame = requestAnimationFrame(step);
-}
-
-function scrollNavToSection(target) {
-  const align = () => window.scrollTo(0, getNavTargetTop(target));
-  animateNavScroll(getNavTargetTop(target));
-  window.setTimeout(align, 700);
-  window.setTimeout(align, 1100);
+  navScrollFrame = requestAnimationFrame(lockToTarget);
 }
 
 document.querySelectorAll('nav a[href^="#"]').forEach(link => {
