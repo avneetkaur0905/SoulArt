@@ -12,12 +12,14 @@
   --mint:#00e5a0;--sky:#00c3ff;--violet:#8b5cf6;
   --ink:#0d0d14;--paper:#fffdf7;--cream:#fef9ec;
   --lavender:#f8f6ff;
+  --header-h:72px;
+  --art-tabs-h:66px;
   --t-slow:1.2s cubic-bezier(.4,0,.2,1);
   --t-med:.5s cubic-bezier(.4,0,.2,1);
   --t-fast:.22s ease;
 }
-html{scroll-behavior:auto}
-body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;overflow-anchor:none}
+html{scroll-behavior:auto;overflow-x:clip}
+body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;overflow-anchor:none;padding-top:var(--header-h)}
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");background-size:200px;pointer-events:none;z-index:9990;opacity:.5}
 
 /* CURSOR */
@@ -34,19 +36,19 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 @keyframes blobFloat{from{transform:translateY(0) scale(1) rotate(0deg)}to{transform:translateY(-40px) scale(1.1) rotate(6deg)}}
 
 /* HEADER */
-header{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;transition:background .4s,backdrop-filter .4s;isolation:isolate}
-header.scrolled{background:rgba(255,253,247,.92);backdrop-filter:blur(18px);border-bottom:1.5px solid rgba(255,51,102,.12)}
+header{position:fixed;top:0;left:0;right:0;min-height:var(--header-h);z-index:220;display:flex;align-items:center;gap:24px;padding:12px 48px;transition:background .4s,backdrop-filter .4s,border-color .4s;isolation:isolate;background:rgba(255,253,247,.82);backdrop-filter:blur(14px);border-bottom:1.5px solid transparent}
+header.scrolled{background:rgba(255,253,247,.96);backdrop-filter:blur(20px);border-bottom:1.5px solid rgba(255,51,102,.12)}
 .logo{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;text-decoration:none;color:var(--ink)}
 .logo span{font-style:italic;font-weight:400;background:linear-gradient(90deg,var(--rose),var(--orange),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-nav{display:flex;align-items:center;gap:28px;position:relative;z-index:1}
+nav{display:flex;align-items:center;justify-content:center;gap:28px;position:relative;z-index:1;flex:1;padding-right:190px}
 nav a{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:400;color:var(--ink);text-decoration:none;position:relative;padding:10px 0;min-height:44px;display:inline-flex;align-items:center;transition:color var(--t-fast);cursor:pointer}
 nav a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--rose),var(--orange));transition:width var(--t-med)}
 nav a:hover::after{width:100%}
-.btn-ss{background:linear-gradient(135deg,var(--rose),var(--orange));border:none;cursor:pointer;padding:10px 22px;font-family:'DM Sans',sans-serif;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;font-weight:400;border-radius:100px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(255,51,102,.35);transition:transform var(--t-fast),box-shadow var(--t-fast)}
-.btn-ss:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,51,102,.5)}
+.btn-ss{background:linear-gradient(135deg,var(--rose),var(--orange));border:none;cursor:pointer;padding:10px 22px;font-family:'DM Sans',sans-serif;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;font-weight:400;border-radius:100px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(255,51,102,.35);transition:transform var(--t-fast),box-shadow var(--t-fast);position:absolute;top:50%;right:48px;transform:translateY(-50%)}
+.btn-ss:hover{transform:translateY(calc(-50% - 2px));box-shadow:0 8px 30px rgba(255,51,102,.5)}
 
 /* HERO */
-#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:120px 48px 80px;position:relative;overflow:hidden;background:var(--cream)}
+#hero{min-height:120px;display:flex;align-items:flex-end;padding:24px 48px 0;position:relative;overflow:hidden;background:var(--cream)}
 .hero-tag{display:inline-block;font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;border:1.5px solid var(--rose);color:var(--rose);padding:5px 14px;border-radius:100px;margin-bottom:28px;opacity:0;animation:slideIn .8s ease .2s forwards}
 .hero-h1{font-family:'Playfair Display',serif;font-size:clamp(4rem,10vw,9.5rem);font-weight:900;line-height:.9;letter-spacing:-.03em;color:var(--ink);opacity:0;animation:slideIn .9s ease .4s forwards}
 .hero-h1 .grad{font-style:italic;font-weight:400;background:linear-gradient(120deg,var(--rose) 0%,var(--orange) 40%,var(--gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block}
@@ -58,12 +60,12 @@ nav a:hover::after{width:100%}
 .chip.c{background:#fff8e0;color:#c97800;border:1px solid rgba(255,190,0,.3)}
 .chip.d{background:#fff3ed;color:#c04000;border:1px solid rgba(255,107,43,.2)}
 .chip.ph{background:#e8fff8;color:#007a52;border:1px solid rgba(0,229,160,.3)}
-.hero-deco{position:absolute;right:-20px;bottom:-40px;font-family:'Playfair Display',serif;font-size:clamp(14rem,30vw,28rem);font-weight:900;font-style:italic;color:transparent;-webkit-text-stroke:2px rgba(255,51,102,.07);pointer-events:none;user-select:none;line-height:1}
+.hero-deco{display:none}
 .scroll-hint{position:absolute;bottom:40px;left:48px;display:flex;align-items:center;gap:12px;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#aaa;opacity:0;animation:slideIn .8s ease 1.2s forwards}
 .scroll-line{width:40px;height:1px;background:linear-gradient(90deg,var(--rose),transparent)}
 
 /* SECTION BASE */
-section{padding:100px 48px;scroll-margin-top:96px}
+section{padding:100px 48px;scroll-margin-top:calc(var(--header-h) + 18px)}
 .s-label{font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--rose);margin-bottom:12px;display:block}
 .s-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:700;line-height:1.05;color:var(--ink);margin-bottom:8px}
 .s-title em{font-weight:400;font-style:italic;color:var(--orange)}
@@ -72,24 +74,27 @@ section{padding:100px 48px;scroll-margin-top:96px}
 /* ══════════════════════════════
    SECTION 1 — ARTWORK (TABBED)
    ══════════════════════════════ */
-#section-artwork{background:var(--cream);position:relative;overflow:hidden}
+#section-artwork{background:var(--cream);position:relative;overflow:visible}
 #section-artwork::after{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(255,51,102,.07),transparent 70%);bottom:-150px;right:-100px;pointer-events:none}
+.art-tab-anchor{display:none}
 
-/* Nav row — sticky, acts as section anchor links */
+/* Tab row — sticky: sits below the heading normally, locks under the header when scrolling */
 .tab-row{
   display:flex;gap:0;margin-bottom:0;
-  border-bottom:2px solid rgba(0,0,0,.07);flex-wrap:wrap;
-  position:sticky;top:60px;z-index:100;
+  border-bottom:2px solid rgba(0,0,0,.07);flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+  position:-webkit-sticky;position:sticky;top:var(--header-h);
+  z-index:180;min-height:var(--art-tabs-h);width:100%;
   background:var(--cream);
   backdrop-filter:blur(12px);
-  padding-top:4px;
+  padding:8px 0 0;
 }
+.tab-row::-webkit-scrollbar{display:none}
 .tab-btn{
   background:none;border:none;cursor:pointer;
   font-family:'DM Sans',sans-serif;
   font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;font-weight:400;
   color:#999;padding:14px 28px;
-  position:relative;transition:color var(--t-fast);
+  position:relative;transition:color var(--t-fast);flex:0 0 auto;
   white-space:nowrap;
 }
 .tab-btn::after{
@@ -173,7 +178,7 @@ section{padding:100px 48px;scroll-margin-top:96px}
 /* colour stripe by sub-category */
 .art-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;z-index:3;transition:height .3s}
 .art-card[data-sub="Mandalas"]::before{background:linear-gradient(90deg,var(--rose),var(--violet))}
-.art-card[data-sub="Drawing"]::before{background:linear-gradient(90deg,var(--orange),var(--gold))}
+.art-card[data-sub="Paintings"]::before{background:linear-gradient(90deg,var(--orange),var(--gold))}
 .art-card[data-sub="Little Artworks"]::before{background:linear-gradient(90deg,var(--mint),var(--sky))}
 .art-card[data-sub="Random Art"]::before{background:linear-gradient(90deg,var(--gold),var(--orange))}
 .art-card[data-sub="Photography"]::before{background:linear-gradient(90deg,var(--sky),var(--mint))}
@@ -187,7 +192,7 @@ section{padding:100px 48px;scroll-margin-top:96px}
 .art-card:hover .art-expand{opacity:1;transform:scale(1)}
 
 /* empty state */
-.empty-state{grid-column:1/-1;padding:60px 20px;text-align:center;color:#bbb}
+.empty-state{column-span:all;padding:60px 20px;text-align:center;color:#bbb}
 .empty-state p{font-size:.82rem;letter-spacing:.05em}
 .empty-state span{font-size:2.5rem;display:block;margin-bottom:12px;opacity:.3}
 
@@ -271,10 +276,11 @@ footer{background:var(--ink);padding:20px 48px;display:flex;align-items:center;j
 
 /* RESPONSIVE */
 @media(max-width:960px){
-  header{padding:18px 24px}
+  :root{--header-h:66px;--art-tabs-h:62px}
+  header{padding:14px 24px 10px}
   nav a{font-size:.6rem;letter-spacing:.14em}
   section{padding:72px 24px}
-  #hero{padding:100px 24px 72px}
+  #hero{min-height:104px;padding:18px 24px 0}
   .gallery-grid{columns:2}
   .photo-grid{columns:2}
   #about,#contact{grid-template-columns:1fr;gap:40px}
@@ -282,31 +288,32 @@ footer{background:var(--ink);padding:20px 48px;display:flex;align-items:center;j
   .lb-side{display:none}
 }
 @media(max-width:760px){
-  header{padding:16px 18px;flex-direction:column;align-items:flex-start;gap:14px}
-  nav{width:100%;gap:10px;flex-wrap:wrap}
-  nav a{font-size:.58rem;letter-spacing:.12em;padding:8px 0;min-height:40px}
-  .btn-ss{padding:9px 16px;font-size:.58rem}
-  #hero{min-height:auto;padding:132px 18px 64px}
+  :root{--header-h:100px;--art-tabs-h:58px}
+  header{padding:12px 18px 10px;flex-wrap:wrap;gap:8px 12px}
+  nav{width:100%;justify-content:flex-start;gap:10px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-right:0}
+  nav::-webkit-scrollbar{display:none}
+  nav a{font-size:.58rem;letter-spacing:.12em;padding:8px 0;min-height:40px;flex:0 0 auto;white-space:nowrap}
+  .btn-ss{padding:9px 16px;font-size:.58rem;top:28px;right:18px;transform:none}
+  .btn-ss:hover{transform:translateY(-2px)}
+  #hero{min-height:88px;padding:12px 18px 0}
   .hero-sub{max-width:100%}
   .scroll-hint{left:18px;bottom:24px}
-  #section-artwork .tab-row{top:112px}
-  section{scroll-margin-top:132px}
   .about-badge{left:14px;right:14px;bottom:14px;padding:12px 14px}
   .c-v{font-size:.98rem;overflow-wrap:anywhere}
   footer{padding:18px;flex-direction:column;align-items:flex-start;gap:10px}
 }
 @media(max-width:560px){
-  header{padding:14px 14px 12px}
+  :root{--header-h:96px;--art-tabs-h:54px}
+  header{padding:10px 14px 8px;gap:8px 10px}
   nav{gap:8px;justify-content:flex-start}
   nav a{font-size:.54rem;letter-spacing:.1em}
-  .btn-ss{width:100%;justify-content:center}
+  .btn-ss{width:auto;justify-content:center;padding:8px 12px;font-size:.52rem;top:24px;right:14px;transform:none}
+  .btn-ss:hover{transform:translateY(-2px)}
   section{padding:64px 14px}
-  #hero{padding:128px 14px 56px}
-  section{scroll-margin-top:152px}
+  #hero{min-height:78px;padding:10px 14px 0}
   .gallery-grid{columns:1}
   .photo-grid{columns:1}
-  .tab-btn{padding:10px 16px;font-size:.62rem}
-  #section-artwork .tab-row{top:138px;overflow-x:auto;flex-wrap:nowrap;padding-bottom:6px}
+  .tab-btn{padding:10px 14px;font-size:.58rem;letter-spacing:.12em}
   .tab-panel{padding-top:40px}
   .about-img{max-width:none}
   .about-badge{position:static;margin:12px}
@@ -329,11 +336,11 @@ footer{background:var(--ink);padding:20px 48px;display:flex;align-items:center;j
     <a href="#section-photography">Photography</a>
     <a href="#about">About Me</a>
     <a href="#contact">Contact</a>
-    <button class="btn-ss" onclick="openSS()">
-      <svg width="11" height="11" viewBox="0 0 11 11"><polygon points="1,0.5 10.5,5.5 1,10.5" fill="currentColor"/></svg>
-      Slideshow
-    </button>
   </nav>
+  <button class="btn-ss" onclick="openSS()">
+    <svg width="11" height="11" viewBox="0 0 11 11"><polygon points="1,0.5 10.5,5.5 1,10.5" fill="currentColor"/></svg>
+    Slideshow
+  </button>
 </header>
 
 <!-- ── HERO ── -->
@@ -343,16 +350,6 @@ footer{background:var(--ink);padding:20px 48px;display:flex;align-items:center;j
     <div class="blob blob3"></div><div class="blob blob4"></div>
   </div>
   <h1 class="hero-h1">Avneet<span class="grad">Kaur</span></h1>
-  <p class="hero-sub">Mandalas · Drawing · Photography & more<br>Colour as emotion. Light as language.</p>
-  <div class="hero-chips">
-    <span class="chip a">Mandalas</span>
-    <span class="chip b">Drawing</span>
-    <span class="chip c">Little Artworks</span>
-    <span class="chip d">Random Art</span>
-    <span class="chip ph">Photography</span>
-  </div>
-  <div class="hero-deco">A</div>
-  <div class="scroll-hint"><div class="scroll-line"></div><span>Scroll to explore</span></div>
 </section>
 
 <!-- ══════════════════════════════
@@ -361,29 +358,50 @@ footer{background:var(--ink);padding:20px 48px;display:flex;align-items:center;j
 <section id="section-artwork">
   <span class="s-label rev">Section 01</span>
   <h2 class="s-title rev d1">My <em>Artwork</em></h2>
-  <p class="s-desc rev d2">A collection of mandalas, drawings, small pieces and everything in between.</p>
+  <p class="s-desc rev d2">A collection of paintings, little artworks, mandalas, and everything in between.</p>
 
   <!-- Sticky nav -->
+  <div class="art-tab-anchor" id="artTabAnchor"></div>
   <div class="tab-row" id="artTabRow">
-    <button class="tab-btn active" data-tab="Mandalas" onclick="scrollToPanel('Mandalas')">
-      <span class="cat-dot dot-mandala"></span>Mandalas
-      <span class="t-count" id="cnt-Mandalas">0</span>
-    </button>
-    <button class="tab-btn" data-tab="Drawing" onclick="scrollToPanel('Drawing')">
-      <span class="cat-dot dot-drawing"></span>Drawing
-      <span class="t-count" id="cnt-Drawing">0</span>
+    <button class="tab-btn active" data-tab="Paintings" onclick="scrollToPanel('Paintings')">
+      <span class="cat-dot dot-drawing"></span>Paintings
+      <span class="t-count" id="cnt-Paintings">0</span>
     </button>
     <button class="tab-btn" data-tab="Little Artworks" onclick="scrollToPanel('Little Artworks')">
       <span class="cat-dot dot-little"></span>Little Artworks
-      <span class="t-count" id="cnt-Little Artworks">0</span>
+      <span class="t-count" id="cnt-Little-Artworks">0</span>
+    </button>
+    <button class="tab-btn" data-tab="Mandalas" onclick="scrollToPanel('Mandalas')">
+      <span class="cat-dot dot-mandala"></span>Mandalas
+      <span class="t-count" id="cnt-Mandalas">0</span>
     </button>
     <button class="tab-btn" data-tab="Random Art" onclick="scrollToPanel('Random Art')">
       <span class="cat-dot dot-random"></span>Random Art
-      <span class="t-count" id="cnt-Random Art">0</span>
+      <span class="t-count" id="cnt-Random-Art">0</span>
     </button>
   </div>
 
   <!-- All panels stacked, always visible -->
+  <div class="tab-panel" id="panel-Paintings">
+    <div class="tab-panel-header">
+      <div>
+        <div class="tab-panel-title">✏️ Paintings</div>
+        <div class="tab-panel-desc">Pencil, ink, charcoal — lines that tell stories.</div>
+      </div>
+    </div>
+    <div class="gallery-grid" id="grid-Paintings"></div>
+  </div>
+
+  <div class="tab-panel" id="panel-Little-Artworks">
+    <div class="tab-panel-header">
+      <div>
+        <div class="tab-panel-title">🎨 Little Artworks</div>
+        <div class="tab-panel-desc">Small canvases, big feelings — miniature masterpieces.</div>
+      </div>
+    </div>
+    <div class="gallery-grid" id="grid-Little-Artworks"></div>
+  </div>
+
   <div class="tab-panel" id="panel-Mandalas">
     <div class="tab-panel-header">
       <div>
@@ -394,34 +412,14 @@ footer{background:var(--ink);padding:20px 48px;display:flex;align-items:center;j
     <div class="gallery-grid" id="grid-Mandalas"></div>
   </div>
 
-  <div class="tab-panel" id="panel-Drawing">
-    <div class="tab-panel-header">
-      <div>
-        <div class="tab-panel-title">✏️ Drawing</div>
-        <div class="tab-panel-desc">Pencil, ink, charcoal — lines that tell stories.</div>
-      </div>
-    </div>
-    <div class="gallery-grid" id="grid-Drawing"></div>
-  </div>
-
-  <div class="tab-panel" id="panel-Little Artworks">
-    <div class="tab-panel-header">
-      <div>
-        <div class="tab-panel-title">🎨 Little Artworks</div>
-        <div class="tab-panel-desc">Small canvases, big feelings — miniature masterpieces.</div>
-      </div>
-    </div>
-    <div class="gallery-grid" id="grid-Little Artworks"></div>
-  </div>
-
-  <div class="tab-panel" id="panel-Random Art">
+  <div class="tab-panel" id="panel-Random-Art">
     <div class="tab-panel-header">
       <div>
         <div class="tab-panel-title">🌀 Random Art</div>
         <div class="tab-panel-desc">Experiments, doodles, and happy accidents.</div>
       </div>
     </div>
-    <div class="gallery-grid" id="grid-Random Art"></div>
+    <div class="gallery-grid" id="grid-Random-Art"></div>
   </div>
 </section>
 
@@ -452,7 +450,7 @@ footer{background:var(--ink);padding:20px 48px;display:flex;align-items:center;j
     <p class="about-body rev d2" style="margin-top:12px">Parallel to that, photography allows me to pause and appreciate the world around me. I love capturing fleeting, beautiful moments freezing a feeling in time that might otherwise be missed. For me, it’s all about finding the beauty in the little things and sharing how I see them.</p>
     <div class="skill-pills rev d3">
       <span class="sk-pill a">Mandalas</span>
-      <span class="sk-pill b">Drawing</span>
+      <span class="sk-pill b">Paintings</span>
       <span class="sk-pill c">Photography</span>
       <span class="sk-pill d">Commissions open</span>
     </div>
@@ -526,7 +524,7 @@ footer{background:var(--ink);padding:20px 48px;display:flex;align-items:center;j
      1. Put your image files in an "images/" folder
      2. Change the img: value to "images/yourfile.jpg"
      3. Set subcategory to one of:
-        Artwork:     "Mandalas" | "Drawing" | "Little Artworks" | "Random Art"
+        Artwork:     "Mandalas" | "Paintings" | "Little Artworks" | "Random Art"
         Photography: "Photography"
      ══════════════════════════════════════════════ -->
 <script>
@@ -546,15 +544,15 @@ const AW = [
   {id:12, title:"Green Half",           subcategory:"Mandalas", year:"2024", desc:"A half-circle mandala on lime green — like catching a glimpse of something vast through a keyhole.", img:"images/mandala_12.jpg"},
 
   /* ── DRAWING ── */
-  {id:13, title:"Starry Night",          subcategory:"Drawing", year:"2024", desc:"A little inspiration from Van Gogh — swirling, restless lines that make the night feel alive, like the sky itself is breathing.", img:"images/drawing_01.jpg"},
-  {id:14, title:"Ink Portrait",         subcategory:"Drawing", year:"2024", desc:"Ink on paper — each stroke a commitment. You cannot take it back, and you wouldn't want to.", img:"images/drawing_02.jpg"},
-  {id:15, title:"Light & Shadow",       subcategory:"Drawing", year:"2024", desc:"Charcoal shadows and bright highlights held in careful balance — the drama is all in the contrast.", img:"images/drawing_03.jpg"},
-  {id:16, title:"Muscle Memory",        subcategory:"Drawing", year:"2024", desc:"The hand remembers what the mind has long forgotten. Drawing from somewhere deeper than thought.", img:"images/drawing_04.jpg"},
-  {id:17, title:"Sketch Dialogue",      subcategory:"Drawing", year:"2024", desc:"Every line a small decision. Every sketch a conversation between the hand and the page.", img:"images/drawing_05.jpg"},
-  {id:18, title:"Form & Feeling",       subcategory:"Drawing", year:"2024", desc:"Form and feeling — two things that refuse to be separated, no matter how hard you try.", img:"images/drawing_06.jpg"},
-  {id:19, title:"In Between",           subcategory:"Drawing", year:"2024", desc:"A study in light and the spaces between — what is left undrawn says as much as what is filled in.", img:"images/drawing_07.jpg"},
-  {id:30, title:"Pressed Down",         subcategory:"Drawing", year:"2024", desc:"Heavy pencil, heavy emotion — the pressure in the line tells you everything about the moment it was made.", img:"images/drawing_08.jpg"},
-  {id:31, title:"The Final Stroke",     subcategory:"Drawing", year:"2024", desc:"The last mark placed on a drawing always feels the most certain — and the most terrifying.", img:"images/drawing_09.jpg"},
+  {id:13, title:"Starry Night",          subcategory:"Paintings", year:"2024", desc:"A little inspiration from Van Gogh — swirling, restless lines that make the night feel alive, like the sky itself is breathing.", img:"images/drawing_01.jpg"},
+  {id:14, title:"Ink Portrait",         subcategory:"Paintings", year:"2024", desc:"Ink on paper — each stroke a commitment. You cannot take it back, and you wouldn't want to.", img:"images/drawing_02.jpg"},
+  {id:15, title:"Light & Shadow",       subcategory:"Paintings", year:"2024", desc:"Charcoal shadows and bright highlights held in careful balance — the drama is all in the contrast.", img:"images/drawing_03.jpg"},
+  {id:16, title:"Muscle Memory",        subcategory:"Paintings", year:"2024", desc:"The hand remembers what the mind has long forgotten. Drawing from somewhere deeper than thought.", img:"images/drawing_04.jpg"},
+  {id:17, title:"Sketch Dialogue",      subcategory:"Paintings", year:"2024", desc:"Every line a small decision. Every sketch a conversation between the hand and the page.", img:"images/drawing_05.jpg"},
+  {id:18, title:"Form & Feeling",       subcategory:"Paintings", year:"2024", desc:"Form and feeling — two things that refuse to be separated, no matter how hard you try.", img:"images/drawing_06.jpg"},
+  {id:19, title:"In Between",           subcategory:"Paintings", year:"2024", desc:"A study in light and the spaces between — what is left undrawn says as much as what is filled in.", img:"images/drawing_07.jpg"},
+  {id:30, title:"Pressed Down",         subcategory:"Paintings", year:"2024", desc:"Heavy pencil, heavy emotion — the pressure in the line tells you everything about the moment it was made.", img:"images/drawing_08.jpg"},
+  {id:31, title:"The Final Stroke",     subcategory:"Paintings", year:"2024", desc:"The last mark placed on a drawing always feels the most certain — and the most terrifying.", img:"images/drawing_09.jpg"},
 
   /* ── LITTLE ARTWORKS ── */
   {id:40, title:"Pocket Canvas",        subcategory:"Little Artworks", year:"2024", desc:"Small canvas, enormous feeling — proof that size has nothing to do with impact.", img:"images/little_artwork_01.jpg"},
@@ -599,14 +597,14 @@ const AW = [
 /* Colour map for slideshow glow & lightbox badges */
 const SUB_GLOW = {
   "Mandalas":      "linear-gradient(135deg,#ff3366,#8b5cf6)",
-  "Drawing":       "linear-gradient(135deg,#ff6b2b,#ffbe00)",
+  "Paintings":     "linear-gradient(135deg,#ff6b2b,#ffbe00)",
   "Little Artworks":"linear-gradient(135deg,#00e5a0,#00c3ff)",
   "Random Art":    "linear-gradient(135deg,#ffbe00,#ff6b2b)",
   "Photography":   "linear-gradient(135deg,#00c3ff,#00e5a0)",
 };
 const SUB_BADGE = {
   "Mandalas":       "background:#fff0f4;color:#ff3366",
-  "Drawing":        "background:#fff8e0;color:#c97800",
+  "Paintings":      "background:#fff8e0;color:#c97800",
   "Little Artworks":"background:#e8fff8;color:#007a52",
   "Random Art":     "background:#fff3ed;color:#c04000",
   "Photography":    "background:#e8f8ff;color:#006d99",
@@ -617,13 +615,15 @@ const SUB_BADGE = {
 /* ── CURSOR ── */
 const cur = document.getElementById('cur');
 document.addEventListener('mousemove', e => { cur.style.left=e.clientX+'px'; cur.style.top=e.clientY+'px'; });
-document.querySelectorAll('a,button,.art-card').forEach(el => {
+document.querySelectorAll('a,button').forEach(el => {
   el.addEventListener('mouseenter', () => cur.classList.add('big'));
   el.addEventListener('mouseleave', () => cur.classList.remove('big'));
 });
+document.addEventListener('mouseover', e => { if (e.target.closest('.art-card')) cur.classList.add('big'); });
+document.addEventListener('mouseout',  e => { if (e.target.closest('.art-card')) cur.classList.remove('big'); });
 
 /* ── HEADER ── */
-window.addEventListener('scroll', () => document.getElementById('hdr').classList.toggle('scrolled', scrollY > 20));
+window.addEventListener('scroll', () => document.getElementById('hdr').classList.toggle('scrolled', scrollY > 20), { passive: true });
 
 /* ── NAV SCROLL ── */
 let navScrollFrame = null;
@@ -692,6 +692,9 @@ const revObs = new IntersectionObserver(entries => {
 }, { threshold: .1 });
 document.querySelectorAll('.rev').forEach(r => revObs.observe(r));
 
+/* ── HELPERS ── */
+const catId = cat => cat.replace(/ /g, '-'); // converts "Little Artworks" → "Little-Artworks"
+
 /* ── BUILD CARDS ── */
 let lbPool = [], lbI = 0;
 
@@ -711,12 +714,12 @@ function makeCard(art, index, pool) {
 }
 
 /* ── RENDER ARTWORK TABS ── */
-const ART_CATS = ['Mandalas', 'Drawing', 'Little Artworks', 'Random Art'];
+const ART_CATS = ['Paintings', 'Little Artworks', 'Mandalas', 'Random Art'];
 
 function renderArtworkTabs() {
   ART_CATS.forEach(cat => {
     const list = AW.filter(a => a.subcategory === cat);
-    const grid = document.getElementById('grid-' + cat);
+    const grid = document.getElementById('grid-' + catId(cat));
     if (!grid) return;
     grid.innerHTML = '';
     if (list.length === 0) {
@@ -724,7 +727,7 @@ function renderArtworkTabs() {
     } else {
       list.forEach((art, i) => grid.appendChild(makeCard(art, i, list)));
     }
-    const countEl = document.getElementById('cnt-' + cat);
+    const countEl = document.getElementById('cnt-' + catId(cat));
     if (countEl) countEl.textContent = list.length || '';
   });
 }
@@ -742,22 +745,80 @@ function renderPhotography() {
 }
 
 /* ── TABS → scroll anchors ── */
+function stickyOffset() {
+  const hdr    = document.getElementById('hdr');
+  const tabRow = document.getElementById('artTabRow');
+  const hdrH   = hdr ? hdr.getBoundingClientRect().height : 72;
+  // Only add tab-row height when it is currently locked (fixed) at the top
+  const tabH   = (tabRow && tabRow.classList.contains('stuck'))
+                 ? tabRow.getBoundingClientRect().height : 0;
+  return hdrH + tabH + 12;
+}
+
 function scrollToPanel(cat) {
-  const panel = document.getElementById('panel-' + cat);
+  const panel = document.getElementById('panel-' + catId(cat));
   if (!panel) return;
-  // offset for sticky header + sticky tab row (~120px total)
-  const y = panel.getBoundingClientRect().top + window.scrollY - 120;
+  const y = panel.getBoundingClientRect().top + window.scrollY - stickyOffset();
   window.scrollTo({ top: y, behavior: 'smooth' });
 }
 
+// Lock the tab row under the main nav the moment IT (not the section heading)
+// would naturally scroll behind the header; release when the section ends.
+// Works on every browser / device — including iOS Safari.
+function updateTabStuck() {
+  const tabRow  = document.getElementById('artTabRow');
+  const ph      = document.getElementById('tabRowPlaceholder');
+  const section = document.getElementById('section-artwork');
+  const hdr     = document.getElementById('hdr');
+  if (!tabRow || !section) return;
+  const hdrH = hdr ? hdr.getBoundingClientRect().height : 72;
+  const tabH = tabRow.getBoundingClientRect().height;
+
+  // When stuck the tab row is fixed, so read the PLACEHOLDER position instead
+  // (it occupies exactly where the tab row was in normal flow).
+  // When not stuck, read the tab row directly.
+  const naturalTabTop = tabRow.classList.contains('stuck')
+    ? (ph ? ph.getBoundingClientRect().top : 0)
+    : tabRow.getBoundingClientRect().top;
+
+  const sectionBottom = section.getBoundingClientRect().bottom;
+
+  // Stick the moment the tab bar's natural top reaches the header bottom;
+  // release once the artwork section's bottom is nearly out of view.
+  const stick = naturalTabTop <= hdrH && sectionBottom > hdrH + tabH + 60;
+  tabRow.classList.toggle('stuck', stick);
+  if (ph) {
+    ph.classList.toggle('active', stick);
+    if (stick) ph.style.height = tabH + 'px'; // exact height prevents layout jump
+  }
+}
+window.addEventListener('scroll', updateTabStuck, { passive: true });
+window.addEventListener('resize', updateTabStuck, { passive: true });
+
+// Keep --header-h in sync with the header's actual rendered height.
+// On mobile the header wraps to two rows so its real height can exceed
+// the value set in CSS; this makes body padding and the stuck tab-row
+// position track the real header perfectly on every device.
+function syncHeaderHeight() {
+  const hdr = document.getElementById('hdr');
+  if (!hdr) return;
+  const h = Math.round(hdr.getBoundingClientRect().height);
+  document.documentElement.style.setProperty('--header-h', h + 'px');
+  document.body.style.paddingTop = h + 'px';
+  updateTabStuck();
+}
+window.addEventListener('resize', syncHeaderHeight, { passive: true });
+window.addEventListener('load',   syncHeaderHeight);   // re-measure after fonts load
+
 // Scroll-spy: highlight the tab whose section is nearest to viewport top
 function updateActiveTab() {
-  const panels = ART_CATS.map(cat => ({ cat, el: document.getElementById('panel-' + cat) }));
+  const threshold = stickyOffset() + 8;
+  const panels = ART_CATS.map(cat => ({ cat, el: document.getElementById('panel-' + catId(cat)) }));
   let active = panels[0].cat;
   for (const { cat, el } of panels) {
     if (!el) continue;
     const rect = el.getBoundingClientRect();
-    if (rect.top <= 160) active = cat;
+    if (rect.top <= threshold) active = cat;
   }
   document.querySelectorAll('.tab-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.tab === active);
@@ -844,15 +905,18 @@ document.addEventListener('keydown', e => {
   }
   if (document.getElementById('ss').classList.contains('open')) {
     if (e.key === 'Escape') closeSS();
-    if (e.key === 'ArrowLeft') ssNav(-1);
-    if (e.key === 'ArrowRight') ssNav(1);
+    if (e.key === 'ArrowLeft') { e.preventDefault(); ssNav(-1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); ssNav(1); }
     if (e.key === ' ') { e.preventDefault(); togglePause(); }
   }
 });
 
 /* ── INIT ── */
+syncHeaderHeight();       // measure real header height before anything else
 renderArtworkTabs();
 renderPhotography();
+updateActiveTab();
+updateTabStuck();
 </script>
 </body>
 </html>
